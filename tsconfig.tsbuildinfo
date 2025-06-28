@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/db/createtable.ts","./src/db/db.ts","./src/middleware/signupmiddleware.ts","./src/routes/adminroutes.ts","./src/routes/userroutes.ts","./src/schema/zodschemas.ts"],"version":"5.8.3"}
