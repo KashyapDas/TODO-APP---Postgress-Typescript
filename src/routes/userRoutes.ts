@@ -27,4 +27,13 @@ router.post("/signup", signupMiddleware, async (req, res) => {
   });
 });
 
+
+router.post("/signin",(req,res)=>{
+  
+
+  res.json({
+    action : 1,
+    msg : "Hello from the signin route"
+  })
+})
 export default router;

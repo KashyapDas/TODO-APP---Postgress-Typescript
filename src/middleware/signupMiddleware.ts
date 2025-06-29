@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { signupSchema } from "../schema/zodSchemas";
 import { getClient } from "../db/db";
 import createTable from "../db/createTable";
+import { signUPINQueries } from "../queries/signUpInqueries";
 
 async function signupMiddleware(req : Request, res : Response ,next : NextFunction) : Promise<void>
 {
@@ -17,14 +18,7 @@ async function signupMiddleware(req : Request, res : Response ,next : NextFuncti
         return;
     }
     // Check the user already exist or not - find based on the email
-    const client = await getClient();
-    await createTable();
-
-    const userQuery = `
-    SELECT * from users where email = $1
-    `
-    const userResponse = await client.query(userQuery,[email]);
-    client.end();
+    const userResponse = await signUPINQueries(email);
 
     if(userResponse.rows[0])
     {
