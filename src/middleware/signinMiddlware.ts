@@ -4,7 +4,7 @@ import { signUPINQueries } from "../queries/signUpInqueries";
 
 async function singinMiddelware(req : Request,res : Response,next : NextFunction) : Promise<void>
 {
-    const {email, password} = req.body;
+    const {email, password} : {email : string, password : string} = req.body;
     // 1st check the input validation using zod
     const userSchema = signinShema.safeParse({email,password});
     if(!userSchema.success)

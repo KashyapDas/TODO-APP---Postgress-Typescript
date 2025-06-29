@@ -4,7 +4,7 @@ import { signUPINQueries } from "../queries/signUpInqueries";
 
 async function signupMiddleware(req : Request, res : Response ,next : NextFunction) : Promise<void>
 {
-    const {email, password, username} = req.body;
+    const {email, password, username} : {email : string, password : string, username : string} = req.body;
     // Check input validation first 
     const schemaResponse = signupSchema.safeParse({email, password, username});
     if(!schemaResponse.success)

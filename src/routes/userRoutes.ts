@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/signup", signupMiddleware, async (req, res) => {
   // create user and store in db and return the id,
-  const {email, password, username} = req.body;
+  const {email, password, username} : {email : string, password : string, username : string} = req.body;
   const client = await getClient();
   const userQuery = `
   INSERT INTO users(email, password, username) VALUES ($1, $2, $3);
@@ -30,7 +30,7 @@ router.post("/signup", signupMiddleware, async (req, res) => {
 
 router.post("/signin",singinMiddelware,(req,res)=>{
   // if exist then return create the jwt token and response the frotend
-  const {email} = req.body;
+  const {email} : {email : string} = req.body;
   const token = jwt.sign({
     email
   },jwtSecret);
