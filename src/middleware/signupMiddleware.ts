@@ -25,6 +25,7 @@ async function signupMiddleware(req : Request, res : Response ,next : NextFuncti
     `
     const userResponse = await client.query(userQuery,[email]);
     client.end();
+
     if(userResponse.rows[0])
     {
         res.json({
