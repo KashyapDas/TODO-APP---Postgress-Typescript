@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { signupSchema } from "../schema/zodSchemas";
-import { getClient } from "../db/db";
-import createTable from "../db/createTable";
 import { signUPINQueries } from "../queries/signUpInqueries";
 
 async function signupMiddleware(req : Request, res : Response ,next : NextFunction) : Promise<void>

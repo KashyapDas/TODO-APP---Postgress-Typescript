@@ -3,6 +3,7 @@ import signupMiddleware from "../middleware/signupMiddleware";
 import { getClient } from "../db/db";
 import jwt from "jsonwebtoken";
 import jwtSecret from "../auth/secret";
+import singinMiddelware from "../middleware/signinMiddlware";
 
 const router = express.Router();
 
@@ -18,7 +19,6 @@ router.post("/signup", signupMiddleware, async (req, res) => {
   const jwtToken = jwt.sign({
     email,
   }, jwtSecret);
-  console.log(jwtToken);
   // send response to the frontend
   res.json({
     action : 1,
@@ -28,12 +28,18 @@ router.post("/signup", signupMiddleware, async (req, res) => {
 });
 
 
-router.post("/signin",(req,res)=>{
-  
+router.post("/signin",singinMiddelware,(req,res)=>{
+  // if exist then return create the jwt token and response the frotend
+  const {email} = req.body;
+  const token = jwt.sign({
+    email
+  },jwtSecret);
+
 
   res.json({
     action : 1,
-    msg : "Hello from the signin route"
+    msg : "Hello from the signin route",
+    token 
   })
 })
 export default router;
