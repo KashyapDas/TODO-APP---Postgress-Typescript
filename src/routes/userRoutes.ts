@@ -6,10 +6,21 @@ import jwtSecret from "../auth/secret";
 import singinMiddelware from "../middleware/signinMiddlware";
 
 const router = express.Router();
+// Typescript Interface
+interface signup{
+  email : string,
+  password : string,
+  username : string
+} 
 
+interface signIn{
+  email :string
+}
+
+// user signup api 
 router.post("/signup", signupMiddleware, async (req, res) => {
   // create user and store in db and return the id,
-  const {email, password, username} : {email : string, password : string, username : string} = req.body;
+  const {email, password, username} : signup = req.body;
   const client = await getClient();
   const userQuery = `
   INSERT INTO users(email, password, username) VALUES ($1, $2, $3);
@@ -28,9 +39,10 @@ router.post("/signup", signupMiddleware, async (req, res) => {
 });
 
 
+// user signi api
 router.post("/signin",singinMiddelware,(req,res)=>{
   // if exist then return create the jwt token and response the frotend
-  const {email} : {email : string} = req.body;
+  const {email} : signIn = req.body;
   const token = jwt.sign({
     email
   },jwtSecret);
@@ -41,5 +53,10 @@ router.post("/signin",singinMiddelware,(req,res)=>{
     msg : "Hello from the signin route",
     token 
   })
+})
+
+// user dashboard api where user see it all previously created todo
+router.post("/dashboard",(req,res)=>{
+  
 })
 export default router;
